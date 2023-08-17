@@ -19,22 +19,33 @@ exports.handler = async function(event, context) {
       }
     });
 
+    const accessToken = response.data.access_token;
+
+    // Use the access token to make a POST request to Zoho API
+    const zohoResponse = await axios.post('https://www.zohoapis.com/crm/v2/Leads', event.body, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`,
+      }
+    });
+
     return {
       statusCode: 200,
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*", // Adjust this to your domain for added security
+        "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Headers": "Content-Type",
         "Access-Control-Allow-Methods": "POST"
       },
-      body: JSON.stringify(response.data)
+      body: JSON.stringify(zohoResponse.data)
     };
+
   } catch (error) {
     return {
       statusCode: 422,
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*", // Adjust this to your domain for added security
+        "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Headers": "Content-Type",
         "Access-Control-Allow-Methods": "POST"
       },
