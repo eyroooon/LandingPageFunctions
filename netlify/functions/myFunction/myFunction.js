@@ -21,11 +21,23 @@ exports.handler = async function(event, context) {
 
     return {
       statusCode: 200,
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*", // Adjust this to your domain for added security
+        "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Allow-Methods": "POST"
+      },
       body: JSON.stringify(response.data)
     };
   } catch (error) {
     return {
       statusCode: 422,
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*", // Adjust this to your domain for added security
+        "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Allow-Methods": "POST"
+      },
       body: JSON.stringify(error.response.data)
     };
   }
