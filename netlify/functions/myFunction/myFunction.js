@@ -3,6 +3,18 @@ const axios = require('axios');
 exports.handler = async function(event, context) {
   const endpoint = 'https://accounts.zoho.com/oauth/v2/token';
 
+  if (event.httpMethod === 'OPTIONS') {
+    return {
+      statusCode: 200,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Allow-Methods": "POST, OPTIONS"
+      },
+      body: ''  // OPTIONS request doesn't have a body
+    };
+  }
+
   // Get variables from environment
   const client_id = process.env.CLIENT_ID;
   const client_secret = process.env.CLIENT_SECRET;
