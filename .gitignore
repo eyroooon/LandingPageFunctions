@@ -1,0 +1,6 @@
+# .gitignore
+
+node_modules/
+netlify/functions/myFunction/node_modules/
+.env
+netlify/functions/myFunction/node_modules/env
