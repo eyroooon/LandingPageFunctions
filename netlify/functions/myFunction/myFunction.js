@@ -39,14 +39,14 @@ exports.handler = async function (event, context) {
     const accessToken = response.data.access_token;
     
     const phoneData = await client.lookups.v1.phoneNumbers('+14639994559').fetch({ type: ['carrier', 'caller-name'] });
-
+    console.log(phoneData)
     const data = {
       ...event.body,
       Carrier: phoneData.carrier.name,
       Number_Type: phoneData.carrier.type,
     };
     // Use the access token to make a POST request to Zoho API
-    const zohoResponse = await axios.post('https://www.zohoapis.com/crm/v2/Leads', data, {
+    const zohoResponse = await axios.post('https://www.zohoapis.com/crm/v2/Leads', event.body, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${accessToken}`,
@@ -61,7 +61,7 @@ exports.handler = async function (event, context) {
         'Access-Control-Allow-Headers': 'Content-Type',
         'Access-Control-Allow-Methods': 'POST',
       },
-      body: JSON.stringify(zohoResponse.data),
+      body: JSON.stringify(phoneData),
     };
   } catch (error) {
     return {
