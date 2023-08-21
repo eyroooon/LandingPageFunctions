@@ -23,7 +23,7 @@ exports.handler = async function(event, context) {
     };
   }
 
-  const phoneData = await client.lookups.v1.phoneNumbers(event.body.Phone_3)
+  const phoneData = await client.lookups.v1.phoneNumbers('+14639994559')
     .fetch({type: ['carrier', 'caller-name']});
 
   const data = {
