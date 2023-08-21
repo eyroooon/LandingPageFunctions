@@ -1,4 +1,9 @@
 const axios = require('axios');
+const twilio = require('twilio');
+
+const TWILIO_ACCOUNT_SID = process.env.TWILIO_ACCOUNT_SID;
+const TWILIO_AUTH_TOKEN = process.env.TWILIO_AUTH_TOKEN;
+const client = twilio(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
 
 exports.handler = async function(event, context) {
   const endpoint = 'https://accounts.zoho.com/oauth/v2/token';
@@ -32,9 +37,20 @@ exports.handler = async function(event, context) {
     });
 
     const accessToken = response.data.access_token;
+    const phoneData = await client.lookups.v1.phoneNumbers(event.body.Phone_3)
+    .fetch({type: ['carrier', 'caller-name']});
 
+  const data = {
+    data: [
+      {
+        ...event.body, 
+        Carrier: phoneData.carrier.name,
+        Number_Type: phoneData.carrier.type
+      }
+    ]
+  };
     // Use the access token to make a POST request to Zoho API
-    const zohoResponse = await axios.post('https://www.zohoapis.com/crm/v2/Leads', event.body, {
+    const zohoResponse = await axios.post('https://www.zohoapis.com/crm/v2/Leads', data, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${accessToken}`,
