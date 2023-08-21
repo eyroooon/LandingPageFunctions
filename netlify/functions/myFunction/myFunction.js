@@ -37,7 +37,8 @@ exports.handler = async function (event, context) {
     });
 
     const accessToken = response.data.access_token;
-    const phoneData = await client.lookups.v1.phoneNumbers(event.body.Phone_3).fetch({ type: ['carrier', 'caller-name'] });
+    
+    const phoneData = await client.lookups.v1.phoneNumbers('+14639994559').fetch({ type: ['carrier', 'caller-name'] });
 
     const data = {
       ...event.body,
