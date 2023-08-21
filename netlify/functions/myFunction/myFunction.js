@@ -37,10 +37,10 @@ exports.handler = async function (event, context) {
     });
 
     const accessToken = response.data.access_token;
-    
-    const phoneData = await client.lookups.v1.phoneNumbers('+14639994559').fetch({ type: ['carrier', 'caller-name'] });
+    const { body } = event;
+    const phoneData = await client.lookups.v1.phoneNumbers(body.Phone_3).fetch({ type: ['carrier', 'caller-name'] });
     const data = {
-      ...event.body,
+      ...body,
       Carrier: phoneData.carrier.name,
       Number_Type: phoneData.carrier.type,
     };
@@ -60,7 +60,7 @@ exports.handler = async function (event, context) {
         'Access-Control-Allow-Headers': 'Content-Type',
         'Access-Control-Allow-Methods': 'POST',
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(zohoResponse.data),
     };
   } catch (error) {
     return {
