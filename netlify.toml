@@ -1,2 +1,11 @@
 [[plugins]]
 package = "@netlify/plugin-functions-install-core"
+
+[[headers]]
+  # Define which paths this should apply to.
+  for = "/.netlify/functions/*"
+
+  [headers.values]
+  Access-Control-Allow-Origin = "https://autopartsai.com"
+  Access-Control-Allow-Headers = "Content-Type"
+  Access-Control-Allow-Methods = "POST, OPTIONS"
