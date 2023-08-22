@@ -66,7 +66,7 @@ exports.handler = async function (event, context) {
         'Access-Control-Allow-Headers': 'Content-Type',
         'Access-Control-Allow-Methods': 'POST',
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(body),
     };
   } catch (error) {
     return {
