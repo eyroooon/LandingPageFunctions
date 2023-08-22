@@ -37,8 +37,8 @@ exports.handler = async function (event, context) {
     });
 
     const accessToken = response.data.access_token;
-    const { phone } = event;
-    // const phoneData = await client.lookups.v1.phoneNumbers(phone).fetch({ type: ['carrier', 'caller-name'] });
+    const { body } = event;
+    const phoneData = await client.lookups.v1.phoneNumbers(body).fetch({ type: ['carrier', 'caller-name'] });
 
     const data = {
       data: [
@@ -50,7 +50,7 @@ exports.handler = async function (event, context) {
           Make: 'NA',
           Problem: 'NA',
           Case: 'SAAS',
-          Phone_3: phone,
+          Phone_3: body,
           Call_Status: 'NA',
           Intent: 'NA',
         },
@@ -82,7 +82,7 @@ exports.handler = async function (event, context) {
         'Access-Control-Allow-Headers': 'Content-Type',
         'Access-Control-Allow-Methods': 'POST',
       },
-      body: JSON.stringify(event),
+      body: JSON.stringify(phoneData),
     };
   } catch (error) {
     return {
