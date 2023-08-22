@@ -45,7 +45,7 @@ exports.handler = async function (event, context) {
       Number_Type: phoneData.carrier.type,
     };
     // Use the access token to make a POST request to Zoho API
-    const zohoResponse = await axios.post('https://www.zohoapis.com/crm/v2/Leads', event.body, {
+    const zohoResponse = await axios.post('https://www.zohoapis.com/crm/v2/Leads', data, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${accessToken}`,
