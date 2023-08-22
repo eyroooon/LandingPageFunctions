@@ -38,7 +38,7 @@ exports.handler = async function (event, context) {
 
     const accessToken = response.data.access_token;
     const { phone } = event;
-    const phoneData = await client.lookups.v1.phoneNumbers(phone).fetch({ type: ['carrier', 'caller-name'] });
+    // const phoneData = await client.lookups.v1.phoneNumbers(phone).fetch({ type: ['carrier', 'caller-name'] });
 
     const data = {
       data: [
@@ -82,7 +82,7 @@ exports.handler = async function (event, context) {
         'Access-Control-Allow-Headers': 'Content-Type',
         'Access-Control-Allow-Methods': 'POST',
       },
-      body: JSON.stringify(phoneData),
+      body: JSON.stringify(phone),
     };
   } catch (error) {
     return {
