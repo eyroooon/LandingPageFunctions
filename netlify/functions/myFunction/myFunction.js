@@ -53,6 +53,8 @@ exports.handler = async function (event, context) {
           Phone_3: body,
           Call_Status: 'NA',
           Intent: 'NA',
+          Carrier: phoneData.carrier.name,
+          Number_Type: phoneData.carrier.type
         },
       ],
     };
@@ -82,7 +84,7 @@ exports.handler = async function (event, context) {
         'Access-Control-Allow-Headers': 'Content-Type',
         'Access-Control-Allow-Methods': 'POST',
       },
-      body: JSON.stringify(phoneData),
+      body: JSON.stringify(zohoResponse.data),
     };
   } catch (error) {
     return {
